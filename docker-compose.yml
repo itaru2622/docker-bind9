@@ -1,0 +1,33 @@
+version: "3"
+services:
+ bind9:
+   image: itaru2622/bind9:${distr:-bullseye}
+   container_name: bind9
+   hostname: bind9
+   build:
+     context:  .
+     dockerfile: Dockerfile
+     args:
+       - zoneDir=${zoneDir:-/etc/bind}
+       - dnsdip=${dnsdip:-127.0.0.1}
+       - forwarder=${forwarder:-8.8.8.8}
+       - rootpwd=${rootpwd:-root}
+       - distr=${distr:-bullseye}
+       - http_proxy=${http_proxy}
+       - https_proxy=${http_proxy}
+       - no_proxy=${no_proxy}
+   environment:
+     - dnsdip=${dnsdip:-127.0.0.1}
+     - forwarder=${forwarder:-8.8.8.8}
+     - TTL=259200
+   ports:
+     - "${dnsdip:-127.0.0.1}:53:53/udp"
+     - "${dnsdip:-127.0.0.1}:53:53/tcp"
+   # webmin port
+     - 10000:10000
+#  volumes:
+#    - ${PWD}/config:${zoneDir:-/etc/bind}
+   cap_add:
+     - NET_ADMIN
+   network_mode: ${network_mode:-bridge}
+   restart: always

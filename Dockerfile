@@ -1,0 +1,36 @@
+ARG distr=bullseye
+FROM debian:${distr}
+ARG distr
+
+ENV DEBIAN_FRONTEND noninteractive
+MAINTAINER itaru2622
+
+RUN apt-get update && apt-get install -y vim bind9 dnsutils procps make net-tools bash-completion curl
+
+ARG zoneDir=/etc/bind
+ARG dnsdip=127.0.0.1
+ARG forwarder=8.8.8.8
+ARG rootpwd=root
+
+RUN mv /etc/bind /etc/bind.orig; mkdir -p ${zoneDir}
+COPY     Makefile README.md    ${zoneDir}/
+RUN echo "root:${rootpwd}" | chpasswd; \
+    make initConf -C  ${zoneDir}
+
+#  webmin:       cf. https://webmin.com/download/
+RUN curl -o /tmp/setup-repo.sh -L https://raw.githubusercontent.com/webmin/webmin/master/setup-repos.sh; \
+    yes | sh /tmp/setup-repo.sh; \
+    apt-get install -y webmin; \
+    sed -i 's/ssl=1/ssl=0/' /etc/webmin/miniserv.conf
+
+WORKDIR  ${zoneDir}
+EXPOSE   53 53/udp  10000
+VOLUME   ["${zoneDir}"]
+CMD      make start -C ${zoneDir}
+ENV      zoneDir ${zoneDir}
+
+LABEL baseImage debian:${distr}
+
+# https://www.atmarkit.co.jp/ait/articles/0103/20/news002.html
+# https://www.qoosky.io/techs/e6d99b0e7a
+# https://www.internic.net/domain/named.root
