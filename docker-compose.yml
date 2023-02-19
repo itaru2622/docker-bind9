@@ -23,6 +23,7 @@ services:
    ports:
      - "${dnsdip:-127.0.0.1}:53:53/udp"
      - "${dnsdip:-127.0.0.1}:53:53/tcp"
+     - "${dnsdip:-127.0.0.1}:80:80/tcp"
    # webmin port
      - 10000:10000
 #  volumes:

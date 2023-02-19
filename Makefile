@@ -57,6 +57,10 @@ controls {
 };
 options {
         directory         "${zoneDir}";
+        // UDP 53, from any
+        listen-on         { any; };
+        // HTTP 80, from any
+        listen-on  port 80  tls none http default  { any; };
         listen-on-v6      { none; };
         forwarders        { ${forwarder} ; };  # { 8.8.8.8; };
         allow-recursion   { any; };
