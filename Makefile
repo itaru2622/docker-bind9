@@ -11,6 +11,8 @@ FQDN       ?=test.${domain}
 TTL        ?=3600
 IP         ?=${dnsdip}
 
+BASE_SERIAL=$(shell date +%Y%m%d%H)
+
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 define NSUPDATE_CONTENT
 server     ${dnsdip}
@@ -37,7 +39,7 @@ define TEMPLATE_ZONE
 $$TTL 3D
 
 @			IN SOA	${domain}. root.${domain}. (
-				2019051402 ; serial
+				${BASE_SERIAL} ; serial
 				1h         ; refresh
 				15m        ; retry
 				1d         ; expire
