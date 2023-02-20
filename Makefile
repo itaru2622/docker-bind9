@@ -121,10 +121,10 @@ jnl2zone:
 
 #webmin
 webminStart:
-	/etc/init.d/webmin start
+	/usr/bin/webmin server start
 webminStop:
-	/etc/init.d/webmin stop
+	/usr/bin/webmin server stop
 webminRestart:
-	/etc/init.d/webmin restart
+	/usr/bin/webmin server restart
 webminReload:
-	/etc/init.d/webmin reload
+	/usr/bin/webmin server reload
