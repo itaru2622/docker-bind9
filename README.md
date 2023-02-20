@@ -38,22 +38,22 @@
 ```bash
    $ docker-compose exec bind9 bash # do below after login to container's bash
 
-   # initialize zone when you want. (clear all exisiting records and zones)  (*A)
+   #    initialize zone when you want. (clear all exisiting records and zones)  (*A)
    $ make initConf
 
-   # add new zone(domain) on demand  (*B)
+   #    add new zone(domain) on demand  (*B)
    $ make addZone domain=example.com
 
-   # add / update / delete recode (i.e A-record)
-   $ make dynReg   FQDN=host1.subdomain.example.com     IP=192.168.0.1 # add new record when not exists.
-   $ make dynReg   FQDN=host1.subdomain.example.com     IP=192.168.0.2 # update IP for FQDN
-   $ make rmReg    FQDN=host1.subdomain.example.com                    # remove record
+   #    add / update / delete recode (i.e A-record)
+   $ make dynReg   fqdn=host1.subdomain.example.com  type='IN A'   v=192.168.0.1 # add new record when not exists.
+   $ make dynReg   fqdn=host1.subdomain.example.com  type='IN A'   v=192.168.0.2 # update IP for fqdn
+   $ make rmReg    fqdn=host1.subdomain.example.com  type='IN A'                 # remove record
       :
 
-   # confirm records in domain (by zone transfer)
+   #    confirm records in domain (by zone transfer)
    $ make getRecord domain=example.com
 
-   # store DDNS requests into zonefile, to freeze them ( i.e. backup ) (*C)
+   #    store DDNS requests into zonefile, to freeze them ( i.e. backup ) (*C)
    $ make jnl2zone
 
 ```

@@ -1,30 +1,31 @@
 SHELL=/bin/bash
 
-zoneDir    ?=/etc/bind
-rndckey    ?=${zoneDir}/rndc.key
+zoneDir    =/etc/bind
+rndckey    =${zoneDir}/rndc.key
 
-dnsdip     ?=127.0.0.1
-forwarder  ?=8.8.8.8
-domain     ?=local
+dnsdip     =127.0.0.1
+forwarder  =8.8.8.8
+domain     =local
 
-FQDN       ?=test.${domain}
-TTL        ?=3600
-IP         ?=${dnsdip}
+fqdn       =test.${domain}
+ttl        =3600
+type       =IN A
+v          =${dnsdip}
 
 BASE_SERIAL=$(shell date +%Y%m%d%H)
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 define NSUPDATE_CONTENT
 server     ${dnsdip}
-update delete ${FQDN}.          IN A
-update add    ${FQDN}.   ${TTL} IN A ${IP}
+update delete ${fqdn}.          ${type}
+update add    ${fqdn}.   ${ttl} ${type} ${v}
 send
 endef
 export NSUPDATE_CONTENT
 
 define DEL_CONTENT
 server     ${dnsdip}
-update delete ${FQDN}.          IN A
+update delete ${fqdn}.          ${type}
 send
 endef
 export DEL_CONTENT
@@ -45,8 +46,8 @@ $$TTL 3D
 				1d         ; expire
 				1h         ; minimum
 				)
-			NS	${domain}.
-${domain}.		A	${dnsdip}
+			IN NS	${domain}.
+${domain}.		IN A	${dnsdip}
 endef
 export TEMPLATE_ZONE
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
