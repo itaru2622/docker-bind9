@@ -19,6 +19,7 @@ services:
    environment:
      - dnsdip=${dnsdip:-127.0.0.1}
      - forwarder=${forwarder:-8.8.8.8}
+     - domain=${domain:-local}
      - TTL=259200
    ports:
      - "${dnsdip:-127.0.0.1}:53:53/udp"

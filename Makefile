@@ -1,18 +1,18 @@
 SHELL=/bin/bash
 
-zoneDir    =/etc/bind
-rndckey    =${zoneDir}/rndc.key
+zoneDir   ?=/etc/bind
+rndckey   ?=${zoneDir}/rndc.key
 
-dnsdip     =127.0.0.1
-forwarder  =8.8.8.8
-domain     =local
+dnsdip    ?=127.0.0.1
+forwarder ?=8.8.8.8
+domain    ?=local
 
-fqdn       =test.${domain}
-ttl        =3600
-type       =IN A
-v          =${dnsdip}
+fqdn      ?=test.${domain}
+ttl       ?=3600
+type      ?=IN A
+v         ?=${dnsdip}
 
-BASE_SERIAL=$(shell date +%Y%m%d%H)
+BASE_SERIAL ?=$(shell date +%Y%m%d%H)
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 define NSUPDATE_CONTENT
@@ -95,7 +95,7 @@ rmReg:
 # 88888888888888888888888888888888888888888888888888888888888
 
 
-start: ${rndckey}
+start:: ${rndckey} initConf addZone
 	named -4 -g -c ${zoneDir}/named.conf
 
 ${rndckey}:

@@ -21,10 +21,7 @@
    #   dnsdip:    IP address of docker host
    #   forwarder: upstream DNS server IP to forward request as cache server.
    #   zoneDir:   bind config folder to store named.conf
-   $ dnsdip=YourHostIP  forwarder=DNSIPinYourNW zoneDir=/etc/bind  docker-compose up
-
-   # initialization and create your first zone.
-   $ docker-compose exec bind9 bash -c "make initConf ; make addZone domain=local"
+   $ dnsdip=YourHostIP  forwarder=DNSIPinYourNW zoneDir=/etc/bind domain=YourDomain docker-compose up
 
    # stop
    $ docker-compose down -v
