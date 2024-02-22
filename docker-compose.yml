@@ -1,7 +1,7 @@
 version: "3"
 services:
  bind9:
-   image: itaru2622/bind9:${distr:-bullseye}
+   image: itaru2622/bind9:${distr:-bookworm}
    container_name: bind9
    hostname: bind9
    build:
@@ -12,7 +12,7 @@ services:
        - dnsdip=${dnsdip:-127.0.0.1}
        - forwarder=${forwarder:-8.8.8.8}
        - rootpwd=${rootpwd:-root}
-       - distr=${distr:-bullseye}
+       - distr=${distr:-bookworm}
        - http_proxy=${http_proxy}
        - https_proxy=${http_proxy}
        - no_proxy=${no_proxy}

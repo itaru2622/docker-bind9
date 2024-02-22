@@ -1,14 +1,11 @@
-ARG distr=bullseye
+ARG distr=bookworm
 FROM debian:${distr}
 ARG distr
 
 ENV DEBIAN_FRONTEND noninteractive
 MAINTAINER itaru2622
 
-RUN echo "deb http://deb.debian.org/debian/ bullseye-backports main contrib non-free" | tee -a /etc/apt/sources.list.d/backports.list; \
-    apt update && apt install -y vim procps make net-tools bash-completion curl bind9 dnsutils -t bullseye-backports
-
-RUN echo "################ uname #########"; uname -m; uname -a
+RUN apt update && apt install -y vim procps make net-tools bash-completion curl bind9 dnsutils
 
 #  webmin:       cf. https://webmin.com/download/
 RUN curl -o /tmp/setup-repo.sh -L https://raw.githubusercontent.com/webmin/webmin/master/setup-repos.sh; \
