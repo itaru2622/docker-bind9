@@ -27,8 +27,9 @@ services:
      - "${dnsdip:-127.0.0.1}:80:80/tcp"
    # webmin port
      - 10000:10000
-#  volumes:
-#    - ${PWD}/config:${zoneDir:-/etc/bind}
+   volumes:
+     - /tmp/data-bind9:${zoneDir:-/etc/bind}
+#    - ${PWD}:/src
    cap_add:
      - NET_ADMIN
    network_mode: ${network_mode:-bridge}

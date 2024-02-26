@@ -95,7 +95,9 @@ rmReg:
 # 88888888888888888888888888888888888888888888888888888888888
 
 
-start:: ${rndckey} initConf addZone
+start:: ${rndckey} initConf addZone startDaemon
+
+startDaemon:
 	named -4 -g -c ${zoneDir}/named.conf
 
 ${rndckey}:

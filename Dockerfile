@@ -17,17 +17,21 @@ ARG zoneDir=/etc/bind
 ARG dnsdip=127.0.0.1
 ARG forwarder=8.8.8.8
 ARG rootpwd=root
+ARG srcDir=/src
 
-RUN mv /etc/bind /etc/bind.orig; mkdir -p ${zoneDir}
-COPY     Makefile README.md    ${zoneDir}/
 RUN echo "root:${rootpwd}" | chpasswd; \
-    make initConf -C  ${zoneDir}
+    mv /etc/bind /etc/bind.orig; mkdir -p ${zoneDir} ${srcDir}
+
+COPY     .    ${srcDir}
 
 WORKDIR  ${zoneDir}
 EXPOSE   53 53/udp  10000
 VOLUME   ["${zoneDir}"]
-CMD      make start -C ${zoneDir}
 ENV      zoneDir ${zoneDir}
+ENV      srcDir  ${srcDir}
+ENV      PATH ./:${PATH}:${zoneDir}:${srcDir}
+
+CMD      start.sh
 
 LABEL baseImage debian:${distr}
 
