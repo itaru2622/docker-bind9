@@ -1,6 +1,6 @@
-ARG distr=bookworm
-FROM debian:${distr}
-ARG distr
+ARG base=debian:bookworm
+FROM ${base}
+ARG base
 
 ENV DEBIAN_FRONTEND noninteractive
 MAINTAINER itaru2622
@@ -33,7 +33,7 @@ ENV      PATH ./:${PATH}:${zoneDir}:${srcDir}
 
 CMD      start.sh
 
-LABEL baseImage debian:${distr}
+LABEL baseImage ${base}
 
 # https://www.atmarkit.co.jp/ait/articles/0103/20/news002.html
 # https://www.qoosky.io/techs/e6d99b0e7a

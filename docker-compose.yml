@@ -12,10 +12,10 @@ services:
        - dnsdip=${dnsdip:-127.0.0.1}
        - forwarder=${forwarder:-8.8.8.8}
        - rootpwd=${rootpwd:-root}
-       - distr=${distr:-bookworm}
        - http_proxy=${http_proxy}
        - https_proxy=${http_proxy}
        - no_proxy=${no_proxy}
+       - base=${BASE_IMG:-debian:bookworm}
    environment:
      - dnsdip=${dnsdip:-127.0.0.1}
      - forwarder=${forwarder:-8.8.8.8}

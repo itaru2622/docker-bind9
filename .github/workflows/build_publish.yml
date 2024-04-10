@@ -25,10 +25,10 @@ env:
   REGISTRY: docker.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-  TAG_LATEST: bullseye
+  TAG_LATEST: ${{ vars.DOCKER_EXPORT_TAG}}
+  BASE_IMG:   ${{ vars.DOCKER_BASE_IMG}}
   PLATFORMS: linux/amd64,linux/arm64
-  #BASE_IMG: debian:bullseye
-  #BASE_IMG: python:3.10-bullseye
+
 
 jobs:
   build:
@@ -83,5 +83,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          #build-args: |
-            #base=${{env.BASE_IMG}}
+          build-args: |
+            base=${{env.BASE_IMG}}
