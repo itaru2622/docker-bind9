@@ -21,6 +21,7 @@ services:
      - forwarder=${forwarder:-8.8.8.8}
      - domain=${domain:-local}
      - TTL=259200
+     - user=${runas:-root}
    ports:
      - "${dnsdip:-127.0.0.1}:53:53/udp"
      - "${dnsdip:-127.0.0.1}:53:53/tcp"

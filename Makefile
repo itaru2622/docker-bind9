@@ -14,6 +14,8 @@ v         ?=${dnsdip}
 
 BASE_SERIAL ?=$(shell date +%Y%m%d%H)
 
+user      ?=root
+
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 define NSUPDATE_CONTENT
 server     ${dnsdip}
@@ -98,7 +100,7 @@ rmReg:
 start:: ${rndckey} initConf addZone startDaemon
 
 startDaemon:
-	named -4 -g -c ${zoneDir}/named.conf
+	named -4 -u ${user} -g -c ${zoneDir}/named.conf
 
 ${rndckey}:
 	rndc-confgen -a -c ${rndckey}
