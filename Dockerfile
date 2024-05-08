@@ -5,7 +5,7 @@ ARG base
 ENV DEBIAN_FRONTEND noninteractive
 MAINTAINER itaru2622
 
-RUN apt update && apt install -y vim procps make net-tools bash-completion curl bind9 dnsutils
+RUN apt update && apt install -y vim procps make net-tools bash-completion curl bind9 bind9-dnsutils
 
 #  webmin:       cf. https://webmin.com/download/
 RUN curl -o /tmp/setup-repo.sh -L https://raw.githubusercontent.com/webmin/webmin/master/setup-repos.sh; \

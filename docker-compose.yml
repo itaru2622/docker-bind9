@@ -23,11 +23,11 @@ services:
      - TTL=259200
      - user=${runas:-root}
    ports:
-     - "${dnsdip:-127.0.0.1}:53:53/udp"
-     - "${dnsdip:-127.0.0.1}:53:53/tcp"
-     - "${dnsdip:-127.0.0.1}:80:80/tcp"
+     - 53:53/udp
+     - 53:53/tcp
+     - 80:80/tcp
    # webmin port
-     - 10000:10000
+     - 10000:10000/tcp
    volumes:
      - /tmp/data-bind9:${zoneDir:-/etc/bind}
 #    - ${PWD}:/src
