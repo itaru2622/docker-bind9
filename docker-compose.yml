@@ -25,11 +25,10 @@ services:
    ports:
      - 53:53/udp
      - 53:53/tcp
-     - 80:80/tcp
    # webmin port
      - 10000:10000/tcp
    volumes:
-     - /tmp/data-bind9:${zoneDir:-/etc/bind}
+     - ${dDir:-/${HOME}/bind9-conf}:${zoneDir:-/etc/bind}
 #    - ${PWD}:/src
    cap_add:
      - NET_ADMIN
