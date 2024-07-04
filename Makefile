@@ -89,9 +89,9 @@ catConf:
 getRecord:
 	-dig @${dnsdip} ${domain}. axfr
 dynReg:
-	echo "$${NSUPDATE_CONTENT}" | nsupdate
+	echo "$${NSUPDATE_CONTENT}" | nsupdate -v
 rmReg:
-	echo "$${DEL_CONTENT}" | nsupdate
+	echo "$${DEL_CONTENT}" | nsupdate -v
 
 
 # 88888888888888888888888888888888888888888888888888888888888
