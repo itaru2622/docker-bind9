@@ -2,8 +2,7 @@ ARG base=debian:bookworm
 FROM ${base}
 ARG base
 
-ENV DEBIAN_FRONTEND noninteractive
-MAINTAINER itaru2622
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt update && apt install -y vim procps make net-tools bash-completion curl bind9 bind9-dnsutils
 
@@ -27,13 +26,13 @@ COPY     .    ${srcDir}
 WORKDIR  ${zoneDir}
 EXPOSE   53 53/udp  10000
 VOLUME   ["${zoneDir}"]
-ENV      zoneDir ${zoneDir}
-ENV      srcDir  ${srcDir}
-ENV      PATH ./:${PATH}:${zoneDir}:${srcDir}
+ENV      zoneDir=${zoneDir}
+ENV      srcDir=${srcDir}
+ENV      PATH=./:${PATH}:${zoneDir}:${srcDir}
 
 CMD      start.sh
 
-LABEL baseImage ${base}
+LABEL baseImage=${base}
 
 # https://www.atmarkit.co.jp/ait/articles/0103/20/news002.html
 # https://www.qoosky.io/techs/e6d99b0e7a
