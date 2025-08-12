@@ -43,7 +43,7 @@ jobs:
            echo IMAGE_NAME=${{ env.IMAGE_NAME }} | sed 's/docker-//' >> $GITHUB_ENV
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
 
       # prepare multi-arch build for docker image, cf. https://docs.docker.com/build/ci/github-actions/multi-platform/
