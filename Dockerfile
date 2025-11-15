@@ -1,4 +1,4 @@
-ARG base=debian:bookworm
+ARG base=debian:trixie
 FROM ${base}
 ARG base
 
