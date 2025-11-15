@@ -1,7 +1,7 @@
 version: "3"
 services:
  bind9:
-   image: itaru2622/bind9:${distr:-bookworm}
+   image: itaru2622/bind9:${distr:-trixie}
    container_name: bind9
    hostname: bind9
    build:
@@ -15,7 +15,7 @@ services:
        - http_proxy=${http_proxy}
        - https_proxy=${http_proxy}
        - no_proxy=${no_proxy}
-       - base=${BASE_IMG:-debian:bookworm}
+       - base=${BASE_IMG:-debian:trixie}
    environment:
      - dnsdip=${dnsdip:-127.0.0.1}
      - forwarder=${forwarder:-8.8.8.8}
